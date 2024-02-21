@@ -13,7 +13,13 @@ exports.handler = async (event) => {
       const result = await new Promise((resolve) => {
         api.getGeolocation((json) => resolve(json), params);
       });
-      return { statusCode: 200, body: JSON.stringify(result.country_code2) };
+      return {
+				statusCode: 200,
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Access-Control-Allow-Headers": "Content-Type"
+				},
+				body: JSON.stringify(result.country_code2) };
     } catch (error) {
       return { statusCode: 500, body: JSON.stringify(error) };
     }
